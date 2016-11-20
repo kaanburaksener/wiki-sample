@@ -1,0 +1,19 @@
+= simple_form_for @article, html: { class: 'form-horizontal' } do |form|
+
+  .row
+    .col-lg-10
+      .form-group
+        = form.input :title, required: true, class: "form-control"
+  .row
+    .col-lg-10
+      .form-group
+        = form.input :content, required: true, class: "form-control"
+  .row
+    .col-lg-10
+      .form-group
+        = form.collection_select :category_id, Category.all, :id, :name, {prompt: 'Choose a Category'}, class: "form-control"
+  .row
+    .col-lg-10
+      .form-group
+        = form.submit "Update", class: "btn btn-success"
+        = link_to "Back", root_path, class: "btn btn-default"

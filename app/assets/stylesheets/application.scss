@@ -1,0 +1,21 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+ul.list-group {
+  list-style: none;
+}
+
+ul.list-group > li.list-group-item.active > a {
+  color: #fff;
+}
+
+.date {
+  font-style: italic;
+  color: #999;
+}
+
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}

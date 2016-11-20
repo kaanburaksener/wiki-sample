@@ -1,0 +1,45 @@
+!!!
+%html
+%head
+  %title Wikipedia
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags
+%body
+  %nav.navbar.navbar-default.navbar-fixed-top
+    .container
+      = link_to "Wikipedia", root_path, class: "navbar-brand"
+      %ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          %li
+            = link_to destroy_user_session_path, :method => :delete do
+              Sign Out
+              %span.glyphicon.glyphicon-off
+        - else
+          %li
+            = link_to new_user_session_path do
+              Sign In
+              %span.glyphicon.glyphicon-user
+
+  %p.notice= notice
+  %p.alert= alert
+
+  .container
+    .row
+      .col-md-8
+        = yield
+
+      //Hide categories in sign up and sign in pages
+      -if !current_page?(new_user_session_path) and !current_page?(new_user_registration_path)
+        .col-md-4
+          %ul.list-group
+            %li.list-group-item
+              = link_to "All Articles", root_path
+            - Category.all.each do |category|
+              %li.list-group-item
+                = link_to category.name, articles_path(category: category.name)
+            - if user_signed_in?
+              %li.list-group-item.active
+                = link_to new_article_path do
+                  New Article
+                  %span.glyphicon.glyphicon-plus
